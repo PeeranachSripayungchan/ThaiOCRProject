@@ -33,13 +33,12 @@ def sequence_matcher(string1, string2):
 
     # Calculate the similarity ratio
     similarity_ratio = dp[len1][len2] / len2
-    false_ratio = 1 - similarity_ratio
     SimilarText = dp[len1][len2]
 
     return similarity_ratio
 
-filepath1 = "D://ngrok/Thai-OCR-WebApp/Example/Ex10_01_300dpi.txt"
-filepath2 = "D://ngrok/Thai-OCR-WebApp/Example/Ex10_01_correct.txt"
+filepath1 = "D://ngrok/Thai-OCR-WebApp/Example/Ex10_02_300dpi.txt"
+filepath2 = "D://ngrok/Thai-OCR-WebApp/Example/Ex10_02_correct.txt"
 
 f = open(filepath1, "r", encoding='utf8')
 xx = 1
@@ -77,8 +76,8 @@ with open(filepath2, "r", encoding=encoding) as f2:
     string2 = remove(prestring2)
 
 # Example strings
-string1 = "153242434"
-string2 = "1233647543453"
+#string1 = "153242434"
+#string2 = "1233647543453"
 
 # Calculate similarity ratio
 similarity_ratio = sequence_matcher(string1, string2)
@@ -108,7 +107,7 @@ import numpy as np
 def levenshteinDistance(s1, s2):
     N, M = len(s1), len(s2)
     # Create an array of size NxM
-    dp = [[0 for i in range(M + 1)] for j in range(N + 1)]
+    dp = [[0 for _ in range(M + 1)] for _ in range(N + 1)]
 
     # Base Case: When N = 0
     for j in range(M + 1):
