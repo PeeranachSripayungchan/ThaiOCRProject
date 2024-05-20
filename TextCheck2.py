@@ -2,6 +2,7 @@
 import difflib
 '''
 import os
+
 #userfile = file_upload('Upload file')
 
 #open(userfile['filename'], 'wb').write(userfile['content'])
@@ -15,6 +16,11 @@ print(dir_list)
 
 def remove(string):
     return string.replace(" ", "")
+
+def find_file_by_name(file_path):
+    for root, dirs, files in os.walk(path):
+        if filename in files:
+            return os.path.join(root, filename)
 
 def sequence_matcher(string1, string2):
     global SimilarText
@@ -37,9 +43,11 @@ def sequence_matcher(string1, string2):
 
     return similarity_ratio
 
-filepath1 = "D://ngrok/Thai-OCR-WebApp/Example/Ex10_02_300dpi.txt"
-filepath2 = "D://ngrok/Thai-OCR-WebApp/Example/Ex10_02_correct.txt"
-
+filepath1 = "D://ngrok/Thai-OCR-WebApp/Example300dpi/Ex10_02_300dpi.txt"
+filepath2 = "D://ngrok/Thai-OCR-WebApp/Example300dpi/Ex10_02_correct.txt"
+#filepath1 = find_file_by_name(filename)
+#filepath2 = find_file_by_name(filename)
+00
 f = open(filepath1, "r", encoding='utf8')
 xx = 1
 while xx == 1:
@@ -76,8 +84,10 @@ with open(filepath2, "r", encoding=encoding) as f2:
     string2 = remove(prestring2)
 
 # Example strings
-#string1 = "153242434"
-#string2 = "1233647543453"
+string1 = "reset"
+string2 = "delete"
+#string1 = string1.replace(" ", "")
+#string2 = string2.replace(" ", "")
 
 # Calculate similarity ratio
 similarity_ratio = sequence_matcher(string1, string2)
@@ -86,7 +96,7 @@ similarity_ratio = sequence_matcher(string1, string2)
 print("Similar Text: ", SimilarText)
 stringlength2 = len(string2)
 print("Correct Text in Document: ", stringlength2)
-print("Similarity Ratio:", similarity_ratio)
+#print("Similarity Ratio:", similarity_ratio)
 print("\n")
 stringlength1 = len(string1)
 print("Total Text Scan: ", stringlength1)
@@ -132,5 +142,5 @@ def levenshteinDistance(s1, s2):
 
 WrongScan = levenshteinDistance(string1, string2)
 print("Wrong: ", WrongScan)
-#CorrectScan = stringlength2 - WrongScan
-#print("CorrectScan: ", CorrectScan)
+Accuracy = 1 - (WrongScan / stringlength2)
+print("Accuracy: ", Accuracy)

@@ -27,9 +27,11 @@ dir_list = os.listdir(path)
 print(dir_list)
 '''
 
+# Function เอา blank ออก
 def remove(string):
     return string.replace(" ", "")
 
+# ตัวหน้าต่างของโปรแกรมหลัก
 def main():
     global filename, computername, img, imgs, imgs2, filename, filename2
 
@@ -52,23 +54,28 @@ def main():
     print(filename)
     print(filename2)
 
+# Function หาไฟล์
 def find_file_by_name(file_path):
     for root, dirs, files in os.walk(path):
         if filename in files:
             return os.path.join(root, filename)
+
+# Function หาไฟล์
 def find_file_by_name_two(file_path):
     for root, dirs, files in os.walk(path):
         if filename2 in files:
             return os.path.join(root, filename2)
 
+
+# Function Sequence Matcher
 def sequence_matcher(string1, string2):
     global SimilarText
     len1, len2 = len(string1), len(string2)
 
-    # Initialize a matrix to store the lengths of common subsequences
+    # สร้างขนาด Matrix เพื่อเก็บตัวเลขโดยสร้างขนาดมากกว่าจำนวนตัวอักษรอยู่ 1
     dp = [[0] * (len2 + 1) for _ in range(len1 + 1)]
 
-    # Populate the matrix using dynamic programming
+    # Function หา Sequence Matcher
     for i in range(1, len1 + 1):
         for j in range(1, len2 + 1):
             if string1[i - 1] == string2[j - 1]:
@@ -76,12 +83,13 @@ def sequence_matcher(string1, string2):
             else:
                 dp[i][j] = max(dp[i - 1][j], dp[i][j - 1])
 
-    # Calculate the similarity ratio
+    # คำนวณหา Similarity Ratio
     similarity_ratio = dp[len1][len2] / len2
     SimilarText = dp[len1][len2]
 
     return similarity_ratio
 
+# ตัวโปรแกรมหลัก
 if __name__=="__main__": 
     put_text("โปรแกรมวัดประสิทธิภาพของ Thai-OCR").style('font-size: 48px')
     dummyvariable1 = 1
@@ -95,6 +103,7 @@ if __name__=="__main__":
         #filepath1 = filename1
         #filepath2 = filename2
 
+        # Function อ่านไฟล์ text
         f = open(filepath1, "r", encoding='utf8')
         xx = 1
         while xx == 1:
@@ -113,6 +122,7 @@ if __name__=="__main__":
             prestring1 = f.read().replace("\n", "")
             string1 = remove(prestring1)
 
+        # Function อ่านไฟล์ text
         f2 = open(filepath1, "r", encoding='utf8')
         while xx == 1:
             try:
@@ -136,7 +146,7 @@ if __name__=="__main__":
         #string1 = string1.replace(" ", "")
         #string2 = string2.replace(" ", "")
 
-        # Calculate similarity ratio
+        # หาค่า Similarity Ratio
         similarity_ratio = sequence_matcher(string1, string2)
 
         # Print the result
@@ -148,8 +158,7 @@ if __name__=="__main__":
         stringlength1 = len(string1)
         print("Total Text Scan: ", stringlength1)
 
-
-
+        # Check ความแตกต่าง
         if stringlength1 > stringlength2:
             stringdiff = stringlength1 - stringlength2
             print("diff character: {}".format(stringdiff))
@@ -161,6 +170,7 @@ if __name__=="__main__":
 
         import numpy as np
 
+        #Function Minimum Distance
         def levenshteinDistance(s1, s2):
             N, M = len(s1), len(s2)
             # Create an array of size NxM
